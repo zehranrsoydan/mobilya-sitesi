@@ -1,0 +1,15 @@
+const express = require('express');
+const router = express.Router();
+const productController = require('../controllers/productController');
+const auth = require('../middleware/auth');
+
+// Public routes (herkes erişebilir)
+router.get('/', productController.getAllProducts);
+router.get('/:id', productController.getProductById);
+
+// Protected routes (sadece admin)
+router.post('/', auth, productController.createProduct);
+router.put('/:id', auth, productController.updateProduct);
+router.delete('/:id', auth, productController.deleteProduct);
+
+module.exports = router;

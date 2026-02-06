@@ -1,0 +1,16 @@
+# robots.txt - Google ve diğer arama motorları için
+
+User-agent: *
+Allow: /
+Allow: /products
+Allow: /products/*
+
+# Admin paneli arama motorlarından gizle
+Disallow: /admin
+Disallow: /admin/*
+
+# Sitemap
+Sitemap: https://sizin-domain.com/sitemap.xml
+
+# Crawl delay (saniye)
+Crawl-delay: 10
