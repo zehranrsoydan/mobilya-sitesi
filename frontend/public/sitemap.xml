@@ -4,7 +4,7 @@
   <!-- Ana Sayfa -->
   <url>
     <loc>https://sizin-domain.com/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -12,21 +12,9 @@
   <!-- Ürünler Sayfası -->
   <url>
     <loc>https://sizin-domain.com/products</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  
-  <!-- 
-    NOT: Ürün detay sayfaları dinamik olarak eklenmeli
-    Backend'den ürünleri çekip otomatik sitemap oluşturabilirsiniz
-    Örnek:
-    <url>
-      <loc>https://sizin-domain.com/products/123</loc>
-      <lastmod>2026-02-07</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
-    </url>
-  -->
   
 </urlset>
