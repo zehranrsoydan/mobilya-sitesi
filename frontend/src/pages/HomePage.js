@@ -4,6 +4,9 @@ import categoryService from '../services/categoryService';
 import productService from '../services/productService';
 import './HomePage.css';
 
+// API Base URL'i al
+const API_BASE_URL = process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000';
+
 function HomePage() {
   const [categories, setCategories] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -68,7 +71,7 @@ function HomePage() {
               >
                 {category.image && (
                   <img 
-                    src={`http://localhost:5000${category.image}`} 
+                    src={`${API_BASE_URL}${category.image}`} 
                     alt={category.name}
                   />
                 )}
@@ -93,7 +96,7 @@ function HomePage() {
               >
                 {product.images && product.images[0] && (
                   <img 
-                    src={`http://localhost:5000${product.images[0]}`} 
+                    src={`${API_BASE_URL}${product.images[0]}`} 
                     alt={product.name}
                   />
                 )}
@@ -111,7 +114,7 @@ function HomePage() {
       {/* Footer */}
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2024 Mobilya Mağazası. Tüm hakları saklıdır.</p>
+          <p>&copy; 2026 Mobilya Mağazası. Tüm hakları saklıdır.</p>
         </div>
       </footer>
     </div>

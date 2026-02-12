@@ -1,47 +1,65 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
-const Admin = require('./models/Admin');
 
 dotenv.config();
 
-// MongoDB'ye bağlan
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB bağlantısı başarılı'))
-  .catch((err) => console.log('Hata:', err));
+// User Model
+const userSchema = new mongoose.Schema({
+  username: String,
+  email: String,
+  password: String,
+  fullName: String,
+  role: String,
+  isActive: Boolean,
+  createdAt: { type: Date, default: Date.now }
+});
+
+const User = mongoose.model('User', userSchema);
 
 // Admin oluştur
-const createAdmin = async () => {
+async function createAdmin() {
   try {
-    // Önce var mı kontrol et
-    const existingAdmin = await Admin.findOne({ username: 'admin' });
+    // MongoDB'ye bağlan
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('✅ MongoDB bağlantısı başarılı!');
+
+    // Admin var mı kontrol et
+    const existingAdmin = await User.findOne({ username: 'admin' });
     
     if (existingAdmin) {
-      console.log('❌ Admin zaten mevcut!');
-      process.exit();
+      console.log('⚠️  Admin kullanıcısı zaten mevcut!');
+      process.exit(0);
     }
 
-    // Şifreyi hashle (güvenli hale getir)
+    // Şifreyi hashle
     const hashedPassword = await bcrypt.hash('admin123', 10);
 
-    // Yeni admin oluştur
-    const admin = new Admin({
+    // Admin kullanıcısı oluştur
+    const admin = new User({
       username: 'admin',
+      email: 'admin@mobilya.com',
       password: hashedPassword,
-      email: 'admin@mobilya.com'
+      fullName: 'Admin',
+      role: 'admin',
+      isActive: true
     });
 
     await admin.save();
-    console.log('✅ Admin başarıyla oluşturuldu!');
-    console.log('Kullanıcı adı: admin');
-    console.log('Şifre: admin123');
-    console.log('⚠️  Şifreyi daha sonra değiştirmeyi unutmayın!');
-    
-    process.exit();
+
+    console.log('✅ Admin kullanıcısı oluşturuldu!');
+    console.log('📧 Email: admin@mobilya.com');
+    console.log('👤 Kullanıcı adı: admin');
+    console.log('🔑 Şifre: admin123');
+    console.log('');
+    console.log('⚠️  ÖNEMLİ: Production\'da bu şifreyi değiştirin!');
+
+    process.exit(0);
+
   } catch (error) {
-    console.log('Hata:', error);
-    process.exit();
+    console.error('❌ Hata:', error);
+    process.exit(1);
   }
-};
+}
 
 createAdmin();
